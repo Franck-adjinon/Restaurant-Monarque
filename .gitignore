@@ -1,0 +1,24 @@
+# Fichiers Python compilés
+*.pyc
+*.pyo
+__pycache__/
+
+# Base de données locale
+db.sqlite3
+
+# Fichiers d'environnement virtuel
+venv/
+env/
+
+# Fichier contenant les variables d'environnement sensibles
+.env
+
+# Dossiers spécifiques à l'IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Dossiers de statiques générées par collectstatic
+staticfiles/
