@@ -1,0 +1,99 @@
+{% extends 'base_index.html' %}
+{% load static %}
+
+
+{% block meta_description %}
+	<meta name="description" content="Restaurant gastronomique 5 étoiles">
+{% endblock %}
+
+
+{% block page_Title %} 
+	<title>Restaurant - Monarque - Chefs</title>
+{% endblock %} 
+
+
+
+<!-- Le body -->
+{% block content %}
+    <section class="generic-banner relative">
+        <div class="container">
+            <div class="row height align-items-center justify-content-center">
+                <div class="col-lg-10">
+                    <div class="generic-banner-content text-white text-center">
+                        <h1>Monarque - Chefs</h1>
+                        <p>Découvrez nos chefs qualifiés</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End banner Area -->
+
+    <!-- About Generic Start -->
+    <div class="main-wrapper">  
+        <section class="team-area section-gap" id="chefs">
+            <div class="container">
+                <div class="row">
+                    <div class="row justify-content-center d-flex align-items-center">
+                        <!-- ligne x -->
+                        
+                        {% for chef in chefs_actif %}
+                            <div class="col-md-3 single-team mb-20">
+                                <div class="thumb">
+                                    <img class="img-fluid" src="{{ chef.image.url }}" alt="{{ chef.image_alt_text }}">
+                                    {% if chef.liens %}
+                                        <div class="align-items-center justify-content-center d-flex">  
+                                            {% for link in chef.liens %} 
+                                                {% if link.designation|lower == 'facebook' %}
+                                                    <a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+                                                {% elif link.designation|lower in 'twitter,x' %}
+                                                    <a href="{{ link.lien }}"><i class="fa fa-twitter"> </i></a>
+                                                {% elif link.designation|lower == 'linkedin' %}
+                                                    <a href="{{ link.lien }}"><i class="fa fa-linkedin"> </i></a> 
+                                                {% endif %}
+                                            {% endfor %}  
+                                            
+                                        </div>
+                                    {% endif %} 
+                                </div>
+                                <div class="meta-text mt-20 text-center">
+                                    <h4>{{ chef.nom }} {{ chef.prenom }}</h4>
+                                    <p>{{ chef.specialite }}</p>
+                                </div>
+                            </div>  
+                        {% endfor %} 
+
+                    </div> 
+
+                </div>
+            </div>
+        </section> 
+{% endblock %}
+
+
+<!-- Début du footer -->
+<!-- Afficher les numéros de téléphone -->
+{% block footer_contact %}
+	
+	{% for tel in contacts %}
+		<p class="number">
+			{{ tel.contact }}
+		</p>
+	{% endfor %} 
+	
+{% endblock %}
+
+
+<!-- Afficher les liens vers les plateformes sociale -->
+{% block lien_plateforme %}  
+	{% for link in liens %}
+		{% if link.designation|lower  == 'facebook' %}
+			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+		{% elif link.designation|lower in 'twitter,x' %}
+			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+		{% elif link.designation|lower  == 'linkedin' %}
+			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
+		{% endif %}
+	{% endfor %}  
+{% endblock %}
+<!-- Fin du footer -->

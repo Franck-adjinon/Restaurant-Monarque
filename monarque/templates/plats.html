@@ -1,0 +1,89 @@
+{% extends 'base_index.html' %}
+{% load static %}
+
+
+{% block meta_description %}
+	<meta name="description" content="Restaurant gastronomique 5 étoiles">
+{% endblock %}
+
+
+{% block page_Title %} 
+	<title>Restaurant - Monarque - Plats</title>
+{% endblock %} 
+
+
+
+<!-- Le body -->
+{% block content %}
+    <section class="generic-banner relative" style="
+        background-image: url('{% static "img/4.webp" %}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        ">
+        <div class="container">
+            <div class="row height align-items-center justify-content-center">
+                <div class="col-lg-10">
+                    <div class="generic-banner-content text-white text-center">
+                        <h1>Monarque - Plats</h1>
+                        <p>Découvrez nos plats</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End banner Area -->
+
+    <!-- About Generic Start -->
+    <div class="main-wrapper"> 
+        <section class="blog-area section-gap">
+            <div class="container">
+                <div class="row"> 
+                    <!-- On commence à afficher les articles-->
+                    
+                    {% for plat in plats_actif %}
+                        <div class="single-dish col-lg-4 mb-20">
+                            <div class="thumb">
+                                <img class="img-fluid" src="{{ plat.image.url }}" alt="{{ plat.image_alt_text }}">
+                            </div>
+                            <a href="{% url 'plat_detail' plat.nom %}">
+                                <h4 class="text-uppercase pt-20 pb-20">{{ plat.nom }}</h4>
+                            </a>
+                            <ul class="unordered-list">
+                                <li>Menu - {{ plat.id_menu.nom }}</li>
+                            </ul> 
+                        </div> 
+                    {% endfor %} 
+                    
+                </div>
+            </div>
+        </section> 
+{% endblock %}
+
+
+<!-- Début du footer -->
+<!-- Afficher les numéros de téléphone -->
+{% block footer_contact %}
+	
+	{% for tel in contacts %}
+		<p class="number">
+			{{ tel.contact }}
+		</p>
+	{% endfor %} 
+	
+{% endblock %}
+
+
+<!-- Afficher les liens vers les plateformes sociale -->
+{% block lien_plateforme %}  
+	{% for link in liens %}
+		{% if link.designation|lower  == 'facebook' %}
+			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+		{% elif link.designation|lower in 'twitter,x' %}
+			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+		{% elif link.designation|lower  == 'linkedin' %}
+			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
+		{% endif %}
+	{% endfor %}  
+{% endblock %}
+<!-- Fin du footer -->

@@ -185,7 +185,7 @@ class platAdmin(ModelAdmin):
     }
     
     list_display = ('nom', 'status', 'pinned', 'menu', 'create_date')  
-    search_fields = ('designation',)             # rechercher par designation  
+    search_fields = ('nom',)             # rechercher par designation  
     
     # ajout de filtrage à l’aide de l’attribut list_filter
     list_filter_submit = True  
@@ -228,19 +228,6 @@ class platAdmin(ModelAdmin):
     def create_date(self, obj):
         return obj.date_creation
 
-
-"""
-class Serviceclient_TextFilter(TextFilter):
-    title = _("Custom filter")
-    parameter_name = "nom"
-
-    def queryset(self, request, queryset):
-        if self.value() not in EMPTY_VALUES:
-            # Here write custom query
-            return queryset.filter(your_field=self.value())
-
-        return queryset
-"""
 
 
 # Les agents du service clients

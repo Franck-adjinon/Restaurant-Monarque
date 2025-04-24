@@ -1,0 +1,107 @@
+{% extends 'base_index.html' %}
+{% load static %}
+
+
+{% block meta_description %}
+	<meta name="description" content="Restaurant gastronomique 5 étoiles">
+{% endblock %}
+
+
+{% block page_Title %} 
+	<title>Restaurant - Monarque - Article</title>
+{% endblock %} 
+
+
+
+<!-- Le body -->
+{% block content %}
+    <!-- Bannière et image de bannière(image principal de l'article)-->
+    <section class="generic-banner relative" style="
+    background-image: url('{{ article.image.url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    ">
+        <div class="container">
+            <div class="row height align-items-center justify-content-center">
+                <div class="col-lg-10">
+                    <div class="generic-banner-content text-white text-center">
+                        <!-- lead text de l'article -->
+                        <h2>{{ article.lead }}</h2>
+                        <!-- Date de publication de l'article -->
+                        <p>{{ article.date_creation|date:"l d F Y" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+    <!-- End banner Area -->
+
+    <!-- About Generic Start -->
+    <div class="main-wrapper">  
+        <section class="about-generic-area section-gap">
+            <div class="container border-top-generic"> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="img-text">
+                            <!-- Contenu de l'article  --> 
+                            {{ article.content|safe }}
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </section> 
+
+
+        <!-- Afficher les autres articles en prenant soit d'exclure l'actuel --> 
+        <section class="blog-area section-gap">
+            <div class="container"> 
+                <div class="row">
+                    {% for art in article_con %}
+                        <div class="col-lg-3 col-md-6 single-blog mb-20">
+                            <div class="thumb">
+                                <img class="img-fluid" src="{{ art.cover.url }}" alt="{{ art.cover_alt_text }}">
+                            </div>
+                            <p class="date">{{ art.date_creation|date:"d M Y" }}</p>
+                            <a href="{% url 'article_detail' art.slug %}">
+                                <h4>
+                                    {{ art.lead }}
+                                </h4>
+                            </a>
+                        </div> 
+                    {% endfor %} 
+
+                </div>
+            </div>
+        </section> 
+    </div>
+{% endblock %}
+
+
+<!-- Début du footer -->
+<!-- Afficher les numéros de téléphone -->
+{% block footer_contact %}
+	
+	{% for tel in contacts %}
+		<p class="number">
+			{{ tel.contact }}
+		</p>
+	{% endfor %} 
+	
+{% endblock %}
+
+
+
+<!-- Afficher les liens vers les plateformes sociale -->
+{% block lien_plateforme %}  
+	{% for link in liens %}
+		{% if link.designation|lower  == 'facebook' %}
+			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+		{% elif link.designation|lower in 'twitter,x' %}
+			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+		{% elif link.designation|lower  == 'linkedin' %}
+			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
+		{% endif %}
+	{% endfor %}  
+{% endblock %}
+<!-- Fin du footer -->

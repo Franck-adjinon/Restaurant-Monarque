@@ -1,0 +1,127 @@
+{% extends 'base_index.html' %}
+{% load static %}
+
+
+{% block meta_description %}
+	<meta name="description" content="Restaurant gastronomique 5 étoiles">
+{% endblock %}
+
+
+{% block page_Title %} 
+	<title>Restaurant - Monarque - Menu</title>
+{% endblock %} 
+
+
+
+<!-- Le body -->
+{% block content %}
+    <!-- Start banner Area -->
+    <!-- Bannière et image de bannière(image principal du menu)-->
+    <section class="generic-banner relative" style="
+        background-image: url('{{ menu.image.url }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        ">
+        <div class="container">
+            <div class="row height align-items-center justify-content-center">
+                <div class="col-lg-10">
+                    <div class="generic-banner-content text-white text-center">
+                        <!-- Le nom du menu -->
+                        <h2>{{ menu.nom }}</h2> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End banner Area -->
+    <!-- Start Sample Area -->
+    <section class="sample-text-area">
+        <div class="container">
+            <h3 class="text-heading">Description</h3>
+            <!-- Description du menu -->
+            <p class="sample-text">
+                {{ menu.description }} 
+            </p>
+        </div>
+    </section>
+    <!-- End Sample Area -->
+    <!-- Start Align Area -->
+    <div class="whole-wrap">
+        <div class="container">
+            <div class="section-top-border">
+                <div class="row">
+                    <div class="col-md-4 mt-sm-30">
+                        <h3 class="mb-20">Liste des Plats</h3>
+                        <div class="">
+                            <ul class="unordered-list">
+                                <!-- Liste des Plats -->
+                                
+                                {% for mp in menu_plats %}
+                                    <a href="{% url 'plat_detail' mp.nom %}"><li>{{ mp.nom }} </li></a>
+                                {% endfor %}
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div> 
+                </div>
+            </div> 
+        </div>
+    </div>
+    <!-- End Align Area -->
+
+    <!-- Afficher les autres menus --> 
+    <section class="blog-area section-gap">
+        <div class="container">
+            <div class="row"> 
+                <!-- Afficher les menus -->
+                {% for mc in menu_con %}
+                    <div class="single-dish col-lg-4 mb-20">
+                        <div class="thumb">
+                            <img class="img-fluid" src="{{ mc.image.url }}" alt="{{ mc.image_alt_text }}">
+                        </div>
+                        <a href="{% url 'menu_detail' mc.nom %}">
+                            <h4 class="text-uppercase pt-20 pb-20">{{ mc.nom }}</h4>
+                        </a>
+                        <p>
+                            {{ mc.description }}
+                        </p>
+                    </div> 
+                {% endfor %} 
+            </div>
+        </div>
+    </section> 
+
+
+
+
+{% endblock %}
+
+
+<!-- Début du footer -->
+<!-- Afficher les numéros de téléphone -->
+{% block footer_contact %}
+	
+	{% for tel in contacts %}
+		<p class="number">
+			{{ tel.contact }}
+		</p>
+	{% endfor %} 
+	
+{% endblock %}
+
+
+<!-- Afficher les liens vers les plateformes sociale -->
+{% block lien_plateforme %}  
+	{% for link in liens %}
+		{% if link.designation|lower  == 'facebook' %}
+			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+		{% elif link.designation|lower in 'twitter,x' %}
+			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+		{% elif link.designation|lower  == 'linkedin' %}
+			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
+		{% endif %}
+	{% endfor %}  
+{% endblock %}
+<!-- Fin du footer -->
