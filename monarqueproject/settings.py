@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
@@ -144,3 +144,117 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Gestion des fichiers médias
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# Paramètres de unfold
+UNFOLD = {
+    "SITE_TITLE": "Gestion Restaurant Monarque",
+    "SITE_HEADER": "MONARQUE",
+    "SITE_ICON": {
+        "light": lambda request: static("png/logo.png"),  # light mode
+        "dark": lambda request: static("png/logo.png"),  # dark mode
+    }, 
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/svg+xml+png",
+            "href": lambda request: static("favicon/favicon.png"),
+        },
+    ], 
+    "ENVIRONMENT": "monarque.utils.environment_callback", 
+    "SIDEBAR": {
+        "show_search": True,  # # Activer/Désactiver la barre de recherche
+        "show_all_applications": False,  # Activer/Désactiver la liste déroulante des applications
+        "navigation": [
+            {
+                "title": _("Navigation"),
+                "separator": True,  # Ligne de séparation en haut
+                "collapsible": True,  # Activer/Desactiver Empêche cette section d'être repliable
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
+                        "link": reverse_lazy("admin:index"),
+                        #"badge": "soutapp.utils.badge_callback",
+                        "permission": lambda request: request.user.is_superuser,
+                    },   
+                    {
+                        "title": _("Articles"),
+                        "icon": "article",
+                        "link": reverse_lazy("admin:monarque_article_changelist"), 
+                    },
+                    {
+                        "title": _("Chefs"),
+                        "icon": "person_apron",
+                        "link": reverse_lazy("admin:monarque_chef_changelist"), 
+                    },
+                    {
+                        "title": _("Nos Contacts"),
+                        "icon": "call",
+                        "link": reverse_lazy("admin:monarque_contact_company_changelist"), 
+                    },
+                    {
+                        "title": _("Emails Clients"),
+                        "icon": "mail",
+                        "link": reverse_lazy("admin:monarque_email_send_changelist"), 
+                    },
+                    {
+                        "title": _("Liens Sociale Chefs"),
+                        "icon": "share",
+                        "link": reverse_lazy("admin:monarque_liensociale_changelist"),
+                        #"badge": "soutapp.utils.message_callback",
+                    },
+                    {
+                        "title": _("Nos liens sociaux"),
+                        "icon": "share",
+                        "link": reverse_lazy("admin:monarque_liensociale_company_changelist"),
+                    },
+                    {
+                        "title": _("Nos menus"),
+                        "icon": "lunch_dining",
+                        "link": reverse_lazy("admin:monarque_menu_changelist"), 
+                    },
+                    {
+                        "title": _("Emails newsletter"),
+                        "icon": "newspaper",
+                        "link": reverse_lazy("admin:monarque_newsletter_email_changelist"), 
+                    },
+                    {
+                        "title": _("Nos plats"),
+                        "icon": "room_service",
+                        "link": reverse_lazy("admin:monarque_plat_changelist"), 
+                    },
+                    {
+                        "title": _("Agents service client"),
+                        "icon": "support_agent",
+                        "link": reverse_lazy("admin:monarque_service_client_changelist"), 
+                    },
+                    {
+                        "title": _("Informations du restaurant"),
+                        "icon": "list_alt",
+                        "link": reverse_lazy("admin:monarque_studio_info_changelist"), 
+                    },
+                ], 
+            }, 
+            { 
+                "title": _("Users & Groups"),
+                "separator": True,  # Ligne de séparation en haut
+                "collapsible": True,  # Activer/Desactiver Empêche cette section d'être repliable
+                "items": [ 
+                    {
+                        "title": _("Users"),
+                        "icon": "person",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                    },
+                    {
+                        "title": _("Groups"),
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    }, 
+                ],
+            }, 
+        ],  
+    },
+}
