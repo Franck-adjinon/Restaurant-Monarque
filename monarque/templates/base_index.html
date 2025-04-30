@@ -100,9 +100,9 @@
 						<h4 class="text-white">A Propos</h4>
 						<p>
 							Notre équipe de chefs talentueux s'engage à utiliser des ingrédients frais et de qualité
-							pour créer des créations gastronomiques qui éveilleront vos papilles. Que vous soyez un
-							amateur de cuisine raffinée, un explorateur de saveurs ou un passionné de plats
-							réconfortants, notre menu varié offre quelque chose pour chaque palais.
+							pour créer des créations gastronomiques qui éveilleront vos papilles. 
+							{% block adresse_mail %}
+                    		{% endblock %}
 						</p>
 					</div>
 				</div>
@@ -117,15 +117,21 @@
 					<div class="single-footer-widget">
 						<h4 class="text-white">Newsletter</h4>
 						<p>Vous pouvez nous faire confiance. Nous n’envoyons que des offres, pas un seul spam.</p>
-						<div class="d-flex flex-row" id="mc_embed_signup">
-
+						<div class="d-flex flex-row" id="mc_embed_signup"> 
 
 							<form class="navbar-form" novalidate="true"
-								action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-								method="get">
+								method="post" action="{% url 'subscribe_news' %}">
+								{% csrf_token %}
+								{% if messages %} 
+								<ul>
+									{% for message in messages %}
+									<li class="{{ message.tags }}">{{ message }}</li>
+									{% endfor %}
+								</ul> 
+								{% endif %}
 								<div class="input-group add-on">
-									<input class="form-control" name="EMAIL" placeholder="Email address"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
+									<input class="form-control" name="from_email" placeholder="Adresse Email"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adresse Email'"
 										required="" type="email">
 									<div style="position: absolute; left: -5000px;">
 										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
@@ -157,7 +163,7 @@
 			</div>
 		</div>
 	</footer>
-	<!-- End footer Area --> 
+	<!-- End footer Area -->  
 
 	<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -173,7 +179,9 @@
 	<script src="{% static 'js/jquery.sticky.js' %}"></script>
 	<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
 	<script src="{% static 'js/parallax.min.js' %}"></script>
+	<!--  
 	<script src="{% static 'js/mail-script.js' %}"></script>
+	-->
 	<script src="{% static 'js/main.js' %}"></script>
 </body>
 

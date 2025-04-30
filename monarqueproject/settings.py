@@ -147,7 +147,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-# Paramètres de unfold
+# Todo: Paramètres de unfold
 UNFOLD = {
     "SITE_TITLE": "Gestion Restaurant Monarque",
     "SITE_HEADER": "MONARQUE",
@@ -258,3 +258,17 @@ UNFOLD = {
         ],  
     },
 }
+
+
+
+
+# Todo: Paramètres de gestion des envois de mails via gmail 
+# Charger les variables d'environnement
+load_dotenv()
+
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))  # Convertir en entier
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'  # Convertir en booléen
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

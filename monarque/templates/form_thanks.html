@@ -1,0 +1,68 @@
+{% extends 'base_index.html' %}
+{% load static %}
+
+
+{% block meta_description %}
+	<meta name="description" content="Restaurant gastronomique 5 étoiles">
+{% endblock %}
+
+
+{% block page_Title %} 
+	<title>Restaurant - Monarque </title>
+{% endblock %} 
+
+
+
+<!-- Le body -->
+{% block content %}
+    <section class="generic-banner relative">
+        <div class="container">
+            <div class="row height align-items-center justify-content-center">
+                <div class="col-lg-10">
+                    <div class="generic-banner-content">
+                        <h2 class="text-white">✨ Votre message a bien été reçu. Nous vous contacterons dans les plus brefs délais
+                            ✨</h2>
+                        <p class="text-white">
+                            Monarque
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block adresse_mail %}
+	<br>{{ lien_map.app_adresse }}
+	<br>{{ lien_map.app_mailadresse }} 
+{% endblock %}
+
+
+<!-- Début du footer -->
+<!-- Afficher les numéros de téléphone -->
+{% block footer_contact %}
+	
+	{% for tel in contacts %}
+		<p class="number">
+			{{ tel.contact }}
+		</p>
+	{% endfor %} 
+	
+{% endblock %}
+
+
+
+<!-- Afficher les liens vers les plateformes sociale -->
+{% block lien_plateforme %}  
+	{% for link in liens %}
+		{% if link.designation|lower  == 'facebook' %}
+			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+		{% elif link.designation|lower in 'twitter,x' %}
+			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+		{% elif link.designation|lower  == 'linkedin' %}
+			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
+		{% endif %}
+	{% endfor %}  
+{% endblock %}
+<!-- Fin du footer -->

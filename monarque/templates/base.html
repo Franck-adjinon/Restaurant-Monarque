@@ -6,7 +6,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="{% static 'img/fav.png' %}">
+	<link rel="shortcut icon" href="{% static 'favicon/favicon.png' %}">
 	<!-- Author Meta -->
 	<meta name="author" content="Salomon">
 	<!-- Meta Description -->
@@ -268,13 +268,21 @@
 				{% block map_location %}
                 {% endblock %} 
 				<div class="col-lg-4 col-md-12 pt-100 pb-100">
-					<form class="form-area" id="myForm" action="mail.php" method="post" class="contact-form text-right">
-						<input name="fname" placeholder="Entrer votre Nom" onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Entrer votre Nom'" class="common-input mt-10" required=""
-							type="text">
-						<input name="email" placeholder="Email"
+					<form class="form-area" id="myForm" method="post" action="{% url 'send_mail' %}" class="contact-form text-right">
+						{% csrf_token %} 
+						{% if messages %} 
+						<ul>
+							{% for message in messages %}
+							<li class="{{ message.tags }}">{{ message }}</li>
+							{% endfor %}
+						</ul> 
+						{% endif %}
+						<input name="from_email" placeholder="Email"
 							pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''"
 							onblur="this.placeholder = 'Email'" class="common-input mt-10" required="" type="email">
+						<input name="subject" placeholder="Sujet" onfocus="this.placeholder = ''"
+							onblur="this.placeholder = 'Sujet'" class="common-input mt-10" required=""
+							type="text">
 						<textarea class="common-textarea mt-10" name="message" placeholder="Message"
 							onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'"
 							required=""></textarea>
@@ -297,9 +305,9 @@
 						<h4 class="text-white">A Propos</h4>
 						<p>
 							Notre équipe de chefs talentueux s'engage à utiliser des ingrédients frais et de qualité
-							pour créer des créations gastronomiques qui éveilleront vos papilles. Que vous soyez un
-							amateur de cuisine raffinée, un explorateur de saveurs ou un passionné de plats
-							réconfortants, notre menu varié offre quelque chose pour chaque palais.
+							pour créer des créations gastronomiques qui éveilleront vos papilles. 
+							{% block adresse_mail %}
+                    		{% endblock %}
 						</p>
 					</div>
 				</div>
@@ -314,15 +322,21 @@
 					<div class="single-footer-widget">
 						<h4 class="text-white">Newsletter</h4>
 						<p>Vous pouvez nous faire confiance. Nous n’envoyons que des offres, pas un seul spam.</p>
-						<div class="d-flex flex-row" id="mc_embed_signup">
-
+						<div class="d-flex flex-row" id="mc_embed_signup"> 
 
 							<form class="navbar-form" novalidate="true"
-								action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-								method="get">
+								method="post" action="{% url 'subscribe_news' %}">
+								{% csrf_token %}
+								{% if messages %} 
+								<ul>
+									{% for message in messages %}
+									<li class="{{ message.tags }}">{{ message }}</li>
+									{% endfor %}
+								</ul> 
+								{% endif %}
 								<div class="input-group add-on">
-									<input class="form-control" name="EMAIL" placeholder="Email address"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
+									<input class="form-control" name="from_email" placeholder="Adresse Email"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adresse Email'"
 										required="" type="email">
 									<div style="position: absolute; left: -5000px;">
 										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
@@ -370,7 +384,9 @@
 	<script src="{% static 'js/jquery.sticky.js' %}"></script>
 	<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
 	<script src="{% static 'js/parallax.min.js' %}"></script>
+	<!--  
 	<script src="{% static 'js/mail-script.js' %}"></script>
+	-->
 	<script src="{% static 'js/main.js' %}"></script>
 </body>
 

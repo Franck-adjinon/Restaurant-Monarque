@@ -114,6 +114,13 @@
 
 
 
+{% block adresse_mail %}
+	<br>{{ lien_map.app_adresse }}
+	<br>{{ lien_map.app_mailadresse }} 
+{% endblock %}
+
+
+
 <!-- Début du footer -->
 <!-- Afficher les numéros de téléphone  -->
 {% block footer_contact %}
@@ -136,7 +143,9 @@
 			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
 		{% elif link.designation|lower  == 'linkedin' %}
 			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
-		{% endif %}
-	{% endfor %}  
+		{% elif link.designation|lower  == 'instagram' %}
+			<a href="{{ link.lien }}"><i class="fa fa-instagram"></i></a> 
+		{% endif %} 
+	{% endfor %}   
 {% endblock %}
-<!-- Fin du footer -->
+<!-- Fin du footer linkedin -->
