@@ -2,6 +2,10 @@ from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
 from django.db import models
+import os
+from dotenv import load_dotenv
+# Charger les variables d'environnement
+load_dotenv()
 
 # service_client pour stocker les infos des agents qui prendront les message des clients
 class Service_client(models.Model):
@@ -77,6 +81,23 @@ class Article(models.Model):
     cover_alt_text = models.CharField("Texte alternatif pour accessibilité de l'image de couverture", max_length=125)
     image_alt_text = models.CharField("Texte alternatif pour accessibilité de l'image principal", max_length=125) 
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
+    
+    
+    def save(self, *args, **kwargs): 
+        """Envoie un email à tout les abonner de la newsletter"""
+        from .task import send_email_abonne 
+        
+        is_new = self._state.adding
+        
+        super().save(*args, **kwargs)
+        
+        if is_new:
+            sujet =  "Nouvel article" 
+            mail = os.getenv('EMAIL_HOST_USER') 
+            titre = self.titre  
+            texte = self.content[0:int(len(self.content)/2)] + "..."
+            send_email_abonne(sujet= sujet, from_client=mail, titre_article=titre, contenu=texte) 
+        
     
     
     def __str__(self):

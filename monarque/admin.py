@@ -17,6 +17,7 @@ from unfold.contrib.filters.admin import(
         TextFilter, 
         FieldTextFilter,
         RangeDateFilter, 
+        RangeDateTimeFilter,
         ChoicesDropdownFilter,
         MultipleChoicesDropdownFilter,
         RelatedDropdownFilter,
@@ -329,12 +330,12 @@ class Liensociale_companyAdmin(ModelAdmin):
 @admin.register(Email_send)
 class Email_sendAdmin(ModelAdmin):
     list_display = ('nom', 'email', 'create_date')  
-    search_fields = ('nom',)             # Permet de rechercher par contact 
+    search_fields = ('email',)             # Permet de rechercher par email 
     
     # ajout de filtrage à l’aide de l’attribut list_filter
     list_filter_submit = True  # Bouton de soumission en bas du filtre
     list_filter = [
-        ("nom", FieldTextFilter), 
+        ("email", FieldTextFilter), 
     ]   
     
     @admin.display(
@@ -406,7 +407,8 @@ class ArticleAdmin(ModelAdmin):
     # ajout de filtrage à l’aide de l’attribut list_filter
     list_filter_submit = True  # Bouton de soumission en bas du filtre
     list_filter = [
-        ("titre", FieldTextFilter), 
+        ("titre", FieldTextFilter),  
+        "date_creation", 
     ]     
     
     @admin.display(

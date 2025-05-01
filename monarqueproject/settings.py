@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles', 
     'monarque.apps.MonarqueConfig',
+    'django_cleanup.apps.CleanupConfig',  #  Ajout de cette ligne pour inclure Django cleanup
 ]
 
 MIDDLEWARE = [

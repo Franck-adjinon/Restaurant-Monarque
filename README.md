@@ -1,31 +1,104 @@
-# Règles de versionnage
+![version](https://img.shields.io/badge/version-1.0.0-green)
 
-## Conventions de commit
-- Format : `<type>(<scope>): <description>`
-- Types autorisés : `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
-## Détails :
-type : Indique la nature du changement. Voici quelques types courants :
--feat : Pour une nouvelle fonctionnalité.
--fix : Pour une correction de bug.
--docs : Pour des changements dans la documentation.
--style : Pour des modifications qui n’affectent pas la logique (ex. formatage, indentation).
--refactor : Pour une restructuration ou amélioration du code existant sans ajout de fonctionnalité.
--test : Pour l'ajout ou la modification de tests.
--chore : Pour les tâches de maintenance (ex. mise à jour des dépendances).
-# scope : La partie du projet concernée (optionnel mais recommandé).
+# Restaurant Monarque 🍽️
 
-Exemples : etudiant, rapport, CSS, admin.
-# description : Une brève description des changements effectués.
-Soyez précis et utilisez un ton impératif : "ajout," "modifie," "supprime," etc.
+Ce projet est un petit site web de démonstration réalisé avec Django. Il représente le site du **restaurant Monarque**, conçu pour m’exercer à Django et aux bases du développement web.
 
-## Exemples 
-  - `feat(soutenance): ajout du modèle pour la table soutenance`
-  - `fix(css): correction du style des boutons`
+## 🌟 Fonctionnalités
 
-## Conventions de branches
-- Branche principale : `main`
-- Branche de développement : `develop`
-- Format des branches fonctionnelles : `<type>/<description-courte>`
-  - Exemples : `feat/ajout-page-admin`, `fix/bug-css-affichage`.
+- Affichage des **chefs du restaurant**
+- Présentation des **menus** et **plats offerts**
+- Section **blog** avec des articles culinaires publiés par le restaurant
+- **Formulaire de contact** pour que les visiteurs puissent écrire au restaurant
+- **Abonnement à la newsletter** : les abonnés reçoivent un email à chaque publication d’un nouvel article
 
+⚠️ **Aucune inscription ni authentification** pour les visiteurs.  
+Pas de like, de commentaires, ni de comptage des vues pour les articles.
 
+---
+
+## 🛠️ Technologies utilisées
+
+- Python / Django
+- HTML / CSS
+- Bootstrap 
+- SQLite (ou la base de données par défaut de Django)
+- Django admin + package unfold pour la gestion interne
+
+---
+
+## 🚀 Lancer le projet en local
+
+```bash
+git clone https://github.com/Franck-adjinon/Restaurant-Monarque.git
+cd Restaurant-Monarque
+python -m venv env
+source env/bin/activate  # ou env\Scripts\activate sur Windows
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+
+---
+
+## 🖼️ Aperçu du site
+
+Accueil :  
+![Accueil](monarqueproject/static/docs/1.png)
+
+Menus :  
+![Blog](monarqueproject/static/docs/2.png)
+
+Plats :  
+![Blog](monarqueproject/static/docs/3.png)
+
+Chefs :  
+![Blog](monarqueproject/static/docs/4.png)
+
+Blog :  
+![Blog](monarqueproject/static/docs/5.png)
+
+📦 Règles de versionnage
+Conventions de commit
+Format : <type>(<scope>): <description>
+
+Types autorisés : feat, fix, docs, style, refactor, test, chore
+
+Types expliqués :
+feat : nouvelle fonctionnalité
+
+fix : correction de bug
+
+docs : mise à jour de la documentation
+
+style : modification de style ou formatage
+
+refactor : amélioration du code sans ajout de fonctionnalité
+
+test : ajout ou mise à jour de tests
+
+chore : maintenance, mises à jour de dépendances
+
+Exemples :
+feat(blog): ajout d’un article
+
+fix(contact): correction de l’envoi d’email
+
+style(menu): amélioration du CSS des boutons
+
+Conventions de branches
+Branche principale : main
+
+Branche de développement : develop
+
+Format des branches fonctionnelles : <type>/<description-courte>
+
+Exemples :
+
+feat/ajout-newsletter
+
+fix/form-contact
+
+docs/mise-a-jour-readme
+
+📎 Liens utiles
+Repo GitHub : https://github.com/Franck-adjinon/Restaurant-Monarque
