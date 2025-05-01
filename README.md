@@ -43,19 +43,19 @@ python manage.py runserver
 ## 🖼️ Aperçu du site
 
 Accueil :  
-![Accueil](monarqueproject/static/docs/1.png)
+![Accueil](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/master/monarqueproject/static/docs/1.png)
 
 Menus :  
-![Blog](monarqueproject/static/docs/2.png)
+![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/master/monarqueproject/static/docs/2.png)
 
 Plats :  
-![Blog](monarqueproject/static/docs/3.png)
+![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/master/monarqueproject/static/docs/3.png)
 
 Chefs :  
-![Blog](monarqueproject/static/docs/4.png)
+![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/master/monarqueproject/static/docs/4.png)
 
 Blog :  
-![Blog](monarqueproject/static/docs/5.png)
+![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/master/monarqueproject/static/docs/5.png)
 
 📦 Règles de versionnage
 Conventions de commit
