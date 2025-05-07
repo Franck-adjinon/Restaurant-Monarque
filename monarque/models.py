@@ -1,6 +1,7 @@
 from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
+from simple_history.models import HistoricalRecords
 from django.db import models
 import os
 from dotenv import load_dotenv
@@ -14,6 +15,7 @@ class Service_client(models.Model):
     email = models.EmailField('Email', max_length=254, unique=True)
     actif = models.BooleanField('Agent actif ?', default=True)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True)
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.nom} {self.email}"
@@ -23,6 +25,7 @@ class Newsletter_email(models.Model):
     id_new = models.AutoField(primary_key=True)
     email_visteur = models.EmailField('Email visiteur', max_length=254, unique=True)
     actif = models.BooleanField('actif ?', default=True)
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.email_visteur}"
@@ -32,6 +35,7 @@ class Contact_company(models.Model):
     id_contact = models.AutoField(primary_key=True)
     contact = models.CharField('Contact', max_length=50, unique=True)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True)
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.contact}"
@@ -41,6 +45,7 @@ class Liensociale_company(models.Model):
     id_lien = models.AutoField(primary_key=True)
     designation = models.CharField('Nom de la Plateforme', max_length=50)
     lien = models.CharField('lien vers le compte', max_length=255, unique=True)
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.lien}"
@@ -52,6 +57,7 @@ class Email_send(models.Model):
     email = models.EmailField('Email Client', max_length=254)
     message = models.TextField('Message du Client')
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.nom} {self.email}"
@@ -64,6 +70,7 @@ class Studio_info(models.Model):
     app_mapslocation = models.TextField('Adresse Maps')
     app_mailadresse = models.EmailField('Email Restaurant', max_length=254)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.app_name} {self.app_adresse}"
@@ -81,6 +88,7 @@ class Article(models.Model):
     cover_alt_text = models.CharField("Texte alternatif pour accessibilité de l'image de couverture", max_length=125)
     image_alt_text = models.CharField("Texte alternatif pour accessibilité de l'image principal", max_length=125) 
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
+    history = HistoricalRecords()
     
     
     def save(self, *args, **kwargs): 
@@ -113,7 +121,7 @@ class Menu(models.Model):
     actif = models.BooleanField('Visible ?', default=True)
     pinned = models.BooleanField('Épingler ?', default=True)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
-    
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.nom}"
@@ -129,7 +137,7 @@ class Plat(models.Model):
     pinned = models.BooleanField('Épingler ?', default=True)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
     id_menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
-    
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.nom}"
@@ -144,7 +152,7 @@ class Chef(models.Model):
     image_alt_text = models.CharField("Texte alternatif pour accessibilité de l'image", max_length=125) 
     actif = models.BooleanField('Actif ?', default=True) 
     date_creation = models.DateTimeField('Date Création', auto_now_add=True)  
-    
+    history = HistoricalRecords()
     
     def __str__(self):
         return f"{self.nom} {self.prenom}"
@@ -155,6 +163,7 @@ class Liensociale(models.Model):
     designation = models.CharField('Nom de la Plateforme', max_length=50)
     lien = models.CharField('lien vers le compte', max_length=255, unique=True)
     id_chef = models.ForeignKey(Chef, on_delete=models.CASCADE, default=0)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.lien

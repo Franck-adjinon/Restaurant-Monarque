@@ -3,3 +3,8 @@ Pillow
 django-cleanup 
 django-unfold
 python-dotenv
+django-import-export
+tablib[xlsx]         # Pour exporter en .xlsx
+openpyxl             # Librairie utilisée par tablib pour gérer les .xlsx
+xlwt                 # Pour exporter en .xls
+django-simple-history

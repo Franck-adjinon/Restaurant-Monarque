@@ -7,36 +7,34 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.models import User, Group
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
-from unfold.admin import ModelAdmin
-# For Nonrelated inlines
-from unfold.contrib.inlines.admin import NonrelatedTabularInline, NonrelatedStackedInline
+from unfold.admin import ModelAdmin 
 # Import pour la mise en place des filtres sur les models
 from django.core.validators import EMPTY_VALUES
 from django.utils.translation import gettext_lazy as _
-from unfold.contrib.filters.admin import(
-        TextFilter, 
+from unfold.contrib.filters.admin import( 
         FieldTextFilter,
-        RangeDateFilter, 
-        RangeDateTimeFilter,
-        ChoicesDropdownFilter,
-        MultipleChoicesDropdownFilter,
-        RelatedDropdownFilter,
-        MultipleRelatedDropdownFilter,
-        DropdownFilter,
-        MultipleDropdownFilter 
+        RangeDateFilter,  
+        RelatedDropdownFilter,  
+        BooleanRadioFilter
     )   
 # Import pour améliorer la gestion du texte enrichi dans l'interface d'administration Django 
 from unfold.contrib.forms.widgets import WysiwygWidget
 # Récuperation des models
 from .models import Chef, Liensociale, Menu, Plat, Service_client, Email_send, Newsletter_email, Contact_company, Studio_info, Liensociale_company, Article
 from django.db import models
-
+# unfold paginator
+from unfold.paginator import InfinitePaginator 
 # unregister 
 admin.site.unregister(User)
 admin.site.unregister(Group)
+#  
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin, ExportActionModelAdmin
+from unfold.contrib.import_export.forms import ExportForm, ImportForm, SelectableFieldsExportForm
+from simple_history.admin import SimpleHistoryAdmin
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin, ModelAdmin):
+class UserAdmin(SimpleHistoryAdmin, BaseUserAdmin, ModelAdmin):
     # Forms loaded from `unfold.forms`
     form = UserChangeForm
     add_form = UserCreationForm
@@ -70,6 +68,7 @@ class ChefAdmin(ModelAdmin):
     # ajout de filtrage à l’aide de l’attribut list_filter
     list_filter = [ 
         ("date_creation", RangeDateFilter),
+        ("actif", BooleanRadioFilter),
     ]  
     
     @admin.display(
@@ -131,23 +130,25 @@ class platInline(StackedInline):
     tab = True  
 
 
-# Les menus
+# Les menus 
 @admin.register(Menu)
-class MenuAdmin(ModelAdmin):
+class MenuAdmin(ModelAdmin, ExportActionModelAdmin): 
+    export_form_class = SelectableFieldsExportForm
+    
     list_display = ('nom', 'status', 'pinned', 'create_date')  
     search_fields = ('nom',)             # Permet de rechercher par nom  
     
     inlines = [platInline] # Possiblité d'ajouter en même temps les plats du menu
     
-    #list_filter_submit = True  # Bouton de soumission en bas du filtre
+    list_filter_submit = True  # Bouton de soumission en bas du filtre
     
-    # ajout de filtrage à l’aide de l’attribut list_filter
-    """
-    list_filter = [
-        Chef_Fullname_DropdownFilter, 
+    # ajout de filtrage à l’aide de l’attribut list_filter 
+    list_filter = [ 
         ("date_creation", RangeDateFilter),
-    ]  
-    """  
+        ("actif", BooleanRadioFilter),
+        ("pinned", BooleanRadioFilter),
+    ]   
+    
     @admin.display(
         ordering="actif",
         description="Visible ?",
@@ -193,6 +194,8 @@ class platAdmin(ModelAdmin):
     list_filter = [  
         ("id_menu", RelatedDropdownFilter),
         ("date_creation", RangeDateFilter),
+        ("actif", BooleanRadioFilter),
+        ("pinned", BooleanRadioFilter),
     ]
     
     @admin.display(
@@ -242,6 +245,7 @@ class ServiceclientAdmin(ModelAdmin):
     list_filter = [
         ("nom", FieldTextFilter),
         ("date_creation", RangeDateFilter),
+        ("actif", BooleanRadioFilter),
     ]  
     
     
@@ -273,6 +277,7 @@ class NewsletteremailAdmin(ModelAdmin):
     list_filter_submit = True  # Bouton de soumission en bas du filtre
     list_filter = [
         ("email_visteur", FieldTextFilter), 
+        ("actif", BooleanRadioFilter),
     ]  
     
     @admin.display(
@@ -394,6 +399,9 @@ class Studio_infoAdmin(ModelAdmin):
 # article pour stocker les articles du blog du restaurant
 @admin.register(Article)
 class ArticleAdmin(ModelAdmin):
+    paginator = InfinitePaginator
+    show_full_result_count = False
+    
     formfield_overrides = {
         models.TextField: {
             "widget": WysiwygWidget,
@@ -408,6 +416,7 @@ class ArticleAdmin(ModelAdmin):
     list_filter_submit = True  # Bouton de soumission en bas du filtre
     list_filter = [
         ("titre", FieldTextFilter),  
+        ("status", BooleanRadioFilter),
         "date_creation", 
     ]     
     
@@ -430,3 +439,4 @@ class ArticleAdmin(ModelAdmin):
         return obj.date_creation
 
 
+ 

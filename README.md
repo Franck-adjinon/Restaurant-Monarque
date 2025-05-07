@@ -21,7 +21,7 @@ Pas de like, de commentaires, ni de comptage des vues pour les articles.
 
 - Python / Django
 - HTML / CSS
-- Bootstrap 
+- Bootstrap
 - SQLite (ou la base de données par défaut de Django)
 - Django admin + package unfold pour la gestion interne
 
@@ -42,20 +42,20 @@ python manage.py runserver
 
 ## 🖼️ Aperçu du site
 
-Accueil :  
-![Accueil](![Accueil](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/main/monarqueproject/static/docs/1.png)) 
+Accueil :
+![Accueil](![Accueil](monarqueproject/static/docs/1.png))
 
-Menus :  
-![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/main/monarqueproject/static/docs/2.png)
+Menus :
+![Blog](monarqueproject/static/docs/2.png)
 
-Plats :  
-![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/main/monarqueproject/static/docs/3.png)
+Plats :
+![Blog](monarqueproject/static/docs/3.png)
 
-Chefs :  
-![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/main/monarqueproject/static/docs/4.png)
+Chefs :
+![Blog](monarqueproject/static/docs/4.png)
 
-Blog :  
-![Blog](https://raw.githubusercontent.com/Franck-adjinon/Restaurant-Monarque/main/monarqueproject/static/docs/5.png)
+Blog :
+![Blog](monarqueproject/static/docs/5.png)
 
 📦 Règles de versionnage
 Conventions de commit
@@ -102,3 +102,4 @@ docs/mise-a-jour-readme
 
 📎 Liens utiles
 Repo GitHub : https://github.com/Franck-adjinon/Restaurant-Monarque
+```

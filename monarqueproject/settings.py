@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', 
     'monarque.apps.MonarqueConfig',
     'django_cleanup.apps.CleanupConfig',  #  Ajout de cette ligne pour inclure Django cleanup
+    'import_export', # Ajout de cette ligne pour inclure Django import-export
+    'simple_history', # Ajout de cette ligne pour inclure Django simple history
 ]
 
 MIDDLEWARE = [
@@ -64,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware', # Django Simple history middleware
 ]
 
 ROOT_URLCONF = 'monarqueproject.urls'
