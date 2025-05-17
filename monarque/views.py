@@ -10,6 +10,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic import View
 from django.utils.timezone import now 
 from django.shortcuts import redirect, render
+# * pour la pagination
+from django.core.paginator import Paginator
 
 
 # TODO: Affiche la page d'accueil
@@ -198,34 +200,40 @@ def blog(request):
         article_actif = Article.objects.filter(status=True).order_by('-date_creation') 
     except Exception as e:
         pass
-    
-    
+
+    paginator = Paginator(article_actif, 6) 
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     # Récupérer les contact du restaurant
     try:
         contacts = Contact_company.objects.all()[:4]
     except Exception as e:
         pass
-    
-    
+
     # Récupérer les liens vers les comptes du restaurant
     try:
         liens = Liensociale_company.objects.all()[:4]
     except Exception as e:
-        pass 
-    
-    
+        pass
+
     # Récupérer le lien map du restaurant
     try:
-        lien_map = Studio_info.objects.latest('-date_creation') 
+        lien_map = Studio_info.objects.latest("-date_creation")
     except Exception as e:
         pass
-    
-    return render(request, 'Blogs.html', { 
-        'article_actif': article_actif,
-        'contacts': contacts,
-        'lien_map': lien_map,
-        'liens': liens 
-        }) 
+
+    return render(
+        request,
+        "Blogs.html",
+        {
+            "page_obj": page_obj,
+            "article_actif": article_actif,
+            "contacts": contacts,
+            "lien_map": lien_map,
+            "liens": liens,
+        },
+    )
 
 
 # TODO: Afficher l'article avec ses informations
