@@ -12,8 +12,6 @@
 {% endblock %} 
 
 
-
-<!-- Le body -->
 {% block content %}
     <section class="generic-banner relative">
         <div class="container">
@@ -33,6 +31,7 @@
 {% endblock %}
 
 
+<!-- Afficher les adresses électroniques -->
 {% block adresse_mail %}
 	<br>{{ lien_map.app_adresse }}
 	<br>{{ lien_map.app_mailadresse }} 
@@ -49,8 +48,7 @@
 		</p>
 	{% endfor %} 
 	
-{% endblock %}
-
+{% endblock %} 
 
 
 <!-- Afficher les liens vers les plateformes sociale -->

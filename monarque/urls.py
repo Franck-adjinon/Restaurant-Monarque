@@ -34,11 +34,8 @@ urlpatterns = [
     # TODO: Affiche la page de remercienement après inscription à la newsletter
     path('news_thanks', views.news_thanks, name='news_thanks'), 
     
-    # TODO: Pour la gestion des envoie de mails
-    path('send_mail', views.email_envoyer, name='send_mail'),
-    
     # TODO: Pour s'ajouter à le visiteur à la newsletter
     path('subscribe_news', views.add_newsletter, name='subscribe_news'),
 ]
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

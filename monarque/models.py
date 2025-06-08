@@ -50,15 +50,15 @@ class Liensociale_company(models.Model):
     def __str__(self):
         return f"{self.lien}"
 
-# email_send pour stocker les mails envoyer au agents du service clients par les clients 
+# email_send pour stocker les mails envoyer au agents du service clients par les clients
 class Email_send(models.Model):
     id_message = models.AutoField(primary_key=True)
     nom = models.CharField('Nom Client', max_length=50)
     email = models.EmailField('Email Client', max_length=254)
-    message = models.TextField('Message du Client')
+    message = models.CharField("Message du Client", max_length=255)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
     history = HistoricalRecords()
-    
+
     def __str__(self):
         return f"{self.nom} {self.email}"
 
@@ -122,7 +122,25 @@ class Menu(models.Model):
     pinned = models.BooleanField('Épingler ?', default=True)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
     history = HistoricalRecords()
-    
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            try:
+                img = Image.open(self.image)
+                img = img.convert("RGB")  # Assurer compatibilité
+                img_io = BytesIO()
+
+                # Toujours compresser l'image
+                img.save(img_io, format="WEBP", quality=80)  # Ajuster la qualité 80%
+
+                # Remplacer l'image originale par la version compressée
+                new_image_name = f"{self.image.name.split('.')[0]}_compressed.webp"
+                self.image = ContentFile(img_io.getvalue(), new_image_name)
+            except Exception as e:
+                raise ValueError(f"Erreur lors du traitement de l'image : {e}")
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.nom}"
 
@@ -134,11 +152,29 @@ class Plat(models.Model):
     image = models.ImageField('Image plat', upload_to='Plats_image/') 
     image_alt_text = models.CharField("Texte alternatif pour accessibilité de l'image", max_length=125) 
     actif = models.BooleanField('Visible ?', default=True)
-    pinned = models.BooleanField('Épingler ?', default=True)
+    pinned = models.BooleanField("Épingler ?", default=True)
     date_creation = models.DateTimeField('Date Création', auto_now_add=True) 
     id_menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     history = HistoricalRecords()
-    
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            try:
+                img = Image.open(self.image)
+                img = img.convert("RGB")  # Assurer compatibilité
+                img_io = BytesIO()
+
+                # Toujours compresser l'image
+                img.save(img_io, format="WEBP", quality=80)  # Ajuster la qualité 80%
+
+                # Remplacer l'image originale par la version compressée
+                new_image_name = f"{self.image.name.split('.')[0]}_compressed.webp"
+                self.image = ContentFile(img_io.getvalue(), new_image_name)
+            except Exception as e:
+                raise ValueError(f"Erreur lors du traitement de l'image : {e}")
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.nom}"
 
@@ -153,7 +189,25 @@ class Chef(models.Model):
     actif = models.BooleanField('Actif ?', default=True) 
     date_creation = models.DateTimeField('Date Création', auto_now_add=True)  
     history = HistoricalRecords()
-    
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            try:
+                img = Image.open(self.image)
+                img = img.convert("RGB")  # Assurer compatibilité
+                img_io = BytesIO()
+
+                # Toujours compresser l'image
+                img.save(img_io, format="WEBP", quality=80)  # Ajuster la qualité 80%
+
+                # Remplacer l'image originale par la version compressée
+                new_image_name = f"{self.image.name.split('.')[0]}_compressed.webp"
+                self.image = ContentFile(img_io.getvalue(), new_image_name)
+            except Exception as e:
+                raise ValueError(f"Erreur lors du traitement de l'image : {e}")
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.nom} {self.prenom}"
 

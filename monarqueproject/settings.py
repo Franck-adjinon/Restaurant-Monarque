@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
 # import dans le cadre de la gestion des paramètres du package unfold
 from django.templatetags.static import static
 from django.urls import reverse_lazy
@@ -26,76 +27,81 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rq7=&!5$!(&ip+xzuo2vjgffmhk65y9v_(#!7*7p^gxv+4q5ss'
+SECRET_KEY = "django-insecure-rq7=&!5$!(&ip+xzuo2vjgffmhk65y9v_(#!7*7p^gxv+4q5ss"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "acb3-2c0f-f0f8-606-fd00-4c7a-e51-985d-9bc8.ngrok-free.app",
+]
 
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [ 
     # Ajout des apps relatif à unfold
-    "unfold",  # before django.contrib.admin
-    "unfold.contrib.filters",  # optional, if special filters are needed
-    "unfold.contrib.forms",  # optional, if special form elements are needed
-    "unfold.contrib.inlines",  # optional, if special inlines are needed
-    "unfold.contrib.import_export",  # optional, if django-import-export package is used
-    "unfold.contrib.guardian",  # optional, if django-guardian package is used
-    "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
-    # Fin d'ajout des apps relatif à unfold 
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles', 
-    'monarque.apps.MonarqueConfig',
-    'django_cleanup.apps.CleanupConfig',  #  Ajout de cette ligne pour inclure Django cleanup
-    'import_export', # Ajout de cette ligne pour inclure Django import-export
-    'simple_history', # Ajout de cette ligne pour inclure Django simple history
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
+    "unfold.contrib.inlines",
+    "unfold.contrib.import_export",
+    "unfold.contrib.guardian",
+    "unfold.contrib.simple_history",
+    # Fin d'ajout des apps relatif à unfold
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "monarque.apps.MonarqueConfig",
+    "django_cleanup.apps.CleanupConfig",  #  Ajout Django cleanup
+    "import_export",  # Ajout Django import-export
+    "simple_history",  # Ajout Django simple history
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware', # Django Simple history middleware
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",  # Django Simple history middleware
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
-ROOT_URLCONF = 'monarqueproject.urls'
+ROOT_URLCONF = "monarqueproject.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'monarqueproject.wsgi.application'
+WSGI_APPLICATION = "monarqueproject.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -105,16 +111,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -122,43 +128,95 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'fr'
+LANGUAGE_CODE = "fr"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGE = (
+    ("fr", _("French")),
+    ("en", _("English")),
+    ("de", _("German")),
+) 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'
-# Ajoute le chemin du dossier static dans STATICFILES_DIRS
+# Gestion des fichiers statques (CSS, JavaScript, Images)
+STATIC_URL = "static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "monarqueproject/static"),  # Chemin vers ton dossier static
+    os.path.join(BASE_DIR, "monarqueproject/static"),  
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Gestion des fichiers médias
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+
+# Configuration du système de logging
+from logging.handlers import RotatingFileHandler
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "standard": {
+            "format": "[{asctime}] {levelname} {name}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        # Affiche les logs dans la console
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "standard",
+        },
+        # Les logs avec rotation dans logs/django_app.log
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "logs", "django_app.log"),
+            "maxBytes": 5 * 1024 * 1024,  # 5 Mo
+            "backupCount": 3,
+            "formatter": "standard",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file"],
+            "level": "WARNING",
+            "propagate": True,
+        },
+        "__main__": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG",
+        },
+        "monarque.views": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "django.server": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
 
 
 # Todo: Paramètres de unfold
 UNFOLD = {
+    "SHOW_LANGUAGES": True,  # Afficher l'option de modification des langue
     "SITE_TITLE": "Gestion Restaurant Monarque",
     "SITE_HEADER": "MONARQUE",
     "SITE_ICON": {
         "light": lambda request: static("png/logo.png"),  # light mode
         "dark": lambda request: static("png/logo.png"),  # dark mode
-    }, 
+    },
     "SITE_FAVICONS": [
         {
             "rel": "icon",
@@ -166,8 +224,8 @@ UNFOLD = {
             "type": "image/svg+xml+png",
             "href": lambda request: static("favicon/favicon.png"),
         },
-    ], 
-    "ENVIRONMENT": "monarque.utils.environment_callback", 
+    ],
+    "ENVIRONMENT": "monarque.utils.environment_callback",
     "SIDEBAR": {
         "show_search": True,  # # Activer/Désactiver la barre de recherche
         "show_all_applications": False,  # Activer/Désactiver la liste déroulante des applications
@@ -181,72 +239,80 @@ UNFOLD = {
                         "title": _("Dashboard"),
                         "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
                         "link": reverse_lazy("admin:index"),
-                        #"badge": "soutapp.utils.badge_callback",
+                        # "badge": "soutapp.utils.badge_callback",
                         "permission": lambda request: request.user.is_superuser,
-                    },   
+                    },
                     {
                         "title": _("Articles"),
                         "icon": "article",
-                        "link": reverse_lazy("admin:monarque_article_changelist"), 
+                        "link": reverse_lazy("admin:monarque_article_changelist"),
                     },
                     {
                         "title": _("Chefs"),
                         "icon": "person_apron",
-                        "link": reverse_lazy("admin:monarque_chef_changelist"), 
+                        "link": reverse_lazy("admin:monarque_chef_changelist"),
                     },
                     {
                         "title": _("Nos Contacts"),
                         "icon": "call",
-                        "link": reverse_lazy("admin:monarque_contact_company_changelist"), 
+                        "link": reverse_lazy(
+                            "admin:monarque_contact_company_changelist"
+                        ),
                     },
                     {
                         "title": _("Emails Clients"),
                         "icon": "mail",
-                        "link": reverse_lazy("admin:monarque_email_send_changelist"), 
+                        "link": reverse_lazy("admin:monarque_email_send_changelist"),
                     },
                     {
                         "title": _("Liens Sociale Chefs"),
                         "icon": "share",
                         "link": reverse_lazy("admin:monarque_liensociale_changelist"),
-                        #"badge": "soutapp.utils.message_callback",
+                        # "badge": "soutapp.utils.message_callback",
                     },
                     {
                         "title": _("Nos liens sociaux"),
                         "icon": "share",
-                        "link": reverse_lazy("admin:monarque_liensociale_company_changelist"),
+                        "link": reverse_lazy(
+                            "admin:monarque_liensociale_company_changelist"
+                        ),
                     },
                     {
                         "title": _("Nos menus"),
                         "icon": "lunch_dining",
-                        "link": reverse_lazy("admin:monarque_menu_changelist"), 
+                        "link": reverse_lazy("admin:monarque_menu_changelist"),
                     },
                     {
                         "title": _("Emails newsletter"),
                         "icon": "newspaper",
-                        "link": reverse_lazy("admin:monarque_newsletter_email_changelist"), 
+                        "link": reverse_lazy(
+                            "admin:monarque_newsletter_email_changelist"
+                        ),
                     },
                     {
                         "title": _("Nos plats"),
                         "icon": "room_service",
-                        "link": reverse_lazy("admin:monarque_plat_changelist"), 
+                        "link": reverse_lazy("admin:monarque_plat_changelist"),
                     },
                     {
                         "title": _("Agents service client"),
                         "icon": "support_agent",
-                        "link": reverse_lazy("admin:monarque_service_client_changelist"), 
+                        "link": reverse_lazy(
+                            "admin:monarque_service_client_changelist"
+                        ),
                     },
                     {
                         "title": _("Informations du restaurant"),
                         "icon": "list_alt",
-                        "link": reverse_lazy("admin:monarque_studio_info_changelist"), 
+                        "link": reverse_lazy("admin:monarque_studio_info_changelist"),
                     },
-                ], 
-            }, 
-            { 
+                ],
+            },
+            {
                 "title": _("Users & Groups"),
                 "separator": True,  # Ligne de séparation en haut
                 "collapsible": True,  # Activer/Desactiver Empêche cette section d'être repliable
-                "items": [ 
+                "items": [
                     {
                         "title": _("Users"),
                         "icon": "person",
@@ -256,23 +322,89 @@ UNFOLD = {
                         "title": _("Groups"),
                         "icon": "group",
                         "link": reverse_lazy("admin:auth_group_changelist"),
-                    }, 
+                    },
                 ],
-            }, 
-        ],  
+            },
+        ],
     },
+    "TABS": [
+        {
+            # Menu et Plat
+            # Liste des models qui afficheront une navigation avec tabulation
+            "models": [
+                "monarque.menu",
+                "monarque.plat",
+            ],
+            #  Liste des items
+            "items": [
+                {
+                    "title": _("Menu"),
+                    "link": reverse_lazy("admin:monarque_menu_changelist"),
+                },
+                {
+                    "title": _("Plat"),
+                    "link": reverse_lazy("admin:monarque_plat_changelist"),
+                },
+            ],
+        },
+        {
+            # Chefs et Liens Sociale
+            # Liste des models qui afficheront une navigation avec tabulation
+            "models": [
+                "monarque.chef",
+                "monarque.liensociale",
+            ],
+            #  Liste des items
+            "items": [
+                {
+                    "title": _("Chefs"),
+                    "link": reverse_lazy("admin:monarque_chef_changelist"),
+                },
+                {
+                    "title": _("Liens Sociale Chefs"),
+                    "link": reverse_lazy("admin:monarque_liensociale_changelist"),
+                },
+            ],
+        },
+        {
+            # Informations, base et Contact et Nos liens sociaux
+            # Liste des models qui afficheront une navigation avec tabulation
+            "models": [
+                "monarque.studio_info",
+                "monarque.contact_company",
+                "monarque.liensociale_company",
+            ],
+            #  Liste des items
+            "items": [
+                {
+                    "title": _("Informations de base"),
+                    "link": reverse_lazy("admin:monarque_studio_info_changelist"),
+                },
+                {
+                    "title": _("Nos Contacts"),
+                    "link": reverse_lazy("admin:monarque_contact_company_changelist"),
+                },
+                {
+                    "title": _("Nos liens sociaux"),
+                    "link": reverse_lazy(
+                        "admin:monarque_liensociale_company_changelist"
+                    ),
+                },
+            ],
+        },
+    ],
 }
 
 
-
-
-# Todo: Paramètres de gestion des envois de mails via gmail 
+# Todo: Paramètres de gestion des envois de mails via gmail
 # Charger les variables d'environnement
 load_dotenv()
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))  # Convertir en entier
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'  # Convertir en booléen
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = os.getenv(
+    "EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend"
+)
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))  # Convertir en entier
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"  # Convertir en booléen
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")

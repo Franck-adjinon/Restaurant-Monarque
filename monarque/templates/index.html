@@ -2,43 +2,46 @@
 {% load static %}
 
 
+<!-- meta description-->
 {% block meta_description %}
 	<meta name="description" content="Restaurant gastronomique 5 étoiles">
-{% endblock %}
+{% endblock %} 
+
 
 <!-- Afficher les plats-->
 {% block plats %}
 	{% for plat in plat_epingler %} 
 		<div class="single-dish col-lg-4">
 			<div class="thumb">
-				<img class="img-fluid" src="{{ plat.image.url }}" alt="{{ plat.image_alt_text }}">
+				<!-- image du plat -->
+				<img class="img-fluid" src="{{ plat.image.url }}" alt="{{ plat.image_alt_text }}"> 
 			</div> 
 			<a href="{% url 'plat_detail' plat.nom %}">
+				<!-- nom du plat -->
 				<h4 class="text-uppercase pt-20 pb-20">{{ plat.nom }}</h4>
 			</a>
-			<p>
-				{{ plat.description }}
-			</p>
 		</div>
 	{% endfor %}
 {% endblock %}  
 
 
 <!-- Afficher les menus-->
-{% block menus %}
-	
+{% block menus %} 
 	{% for menu in menu_epingler %}
 		<div class="item row align-items-center">
 			<div class="col-lg-6 rel-left">
 				<h3>
+					<!-- Nom du menu -->
 					{{ menu.nom }}
 				</h3>
 				<p class="pt-30 pb-30">
+					<!-- Description du menu -->
 					{{ menu.description }}
 				</p>
 				<a href="{% url 'menu_detail' menu.nom %}" class="primary-btn header-btn text-uppercase">Voir le menu complet</a>
 			</div>
 			<div class="col-lg-6">
+				<!-- image du menu -->
 				<img class="img-fluid" src="{{ menu.image.url }}" alt="{{ menu.image_alt_text }}">
 			</div>
 		</div>
@@ -48,11 +51,11 @@
 
 
 <!-- Afficher les chefs-->
-{% block chefs %}
-	
+{% block chefs %} 
 	{% for chef in chef_epingler %}
 		<div class="col-md-3 single-team">
 			<div class="thumb">
+				<!-- image du chef -->
 				<img class="img-fluid" src="{{ chef.image.url }}" alt="{{ chef.image_alt_text }}">
 				{% if chef.liens %}
 					<div class="align-items-center justify-content-center d-flex"> 
@@ -71,6 +74,7 @@
 				{% endif %} 
 			</div>
 			<div class="meta-text mt-30 text-center">
+				<!-- Raison sociale du chef -->
 				<h4>{{ chef.nom }} {{ chef.prenom }}</h4>
 				<p>{{ chef.specialite }}</p>
 			</div>
@@ -86,11 +90,14 @@
 	{% for article in liste_article %}
 		<div class="col-lg-3 col-md-6 single-blog">
 			<div class="thumb">
+				<!-- image de l'article -->
 				<img class="img-fluid" src="{{ article.cover.url }}" alt="{{ article.cover_alt_text }}">
 			</div>
+			<!-- Date de publication -->
 			<p class="date">{{ article.date_creation|date:"d M Y" }}</p>
 			<a href="{% url 'article_detail' article.slug %}">
 				<h4>
+					<!-- lead text -->
 					{{ article.lead }}
 				</h4>
 			</a> 
@@ -113,12 +120,11 @@
 {% endblock %}
 
 
-
+<!-- Afficher les adresses électroniques -->
 {% block adresse_mail %}
 	<br>{{ lien_map.app_adresse }}
 	<br>{{ lien_map.app_mailadresse }} 
 {% endblock %}
-
 
 
 <!-- Début du footer -->
@@ -138,14 +144,14 @@
 {% block lien_plateforme %}  
 	{% for link in liens %}
 		{% if link.designation|lower  == 'facebook' %}
-			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+			<a href="{{ link.lien }}" title="facebook account link" ><i class="fa fa-facebook"></i></a>
 		{% elif link.designation|lower in 'twitter,x' %}
-			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+			<a href="{{ link.lien }}" title="twitter account link"><i class="fa fa-twitter"></i></a>
 		{% elif link.designation|lower  == 'linkedin' %}
-			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
+			<a href="{{ link.lien }}" title="linkedin account link"><i class="fa fa-linkedin"></i></a> 
 		{% elif link.designation|lower  == 'instagram' %}
-			<a href="{{ link.lien }}"><i class="fa fa-instagram"></i></a> 
+			<a href="{{ link.lien }}" title="instagram account link"><i class="fa fa-instagram"></i></a> 
 		{% endif %} 
-	{% endfor %}   
-{% endblock %}
-<!-- Fin du footer linkedin -->
+	{% endfor %}  
+{% endblock %} 
+<!-- Fin du footer -->

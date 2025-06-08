@@ -12,8 +12,6 @@
 {% endblock %} 
 
 
-
-<!-- Le body -->
 {% block content %}
     <!-- Bannière et image de bannière(image principal du menu)-->
     <section class="generic-banner relative" style="
@@ -34,13 +32,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> 
+    <!-- End banner Area --> 
 
-    <!-- End banner Area -->
-
-    <!-- About Generic Start -->
-    <div class="main-wrapper">
-
+    <div class="main-wrapper"> 
         <!-- Start Generic Area -->
         <section class="about-generic-area section-gap">
             <div class="container border-top-generic"> 
@@ -49,7 +44,7 @@
                         <div class="img-text">
                             <!-- Le contenu de la description du plat --> 
                             <p> 
-                                {{ plat.description }}
+                                {{ plat.description|safe }}
                             </p>
                         </div>
                     </div> 
@@ -63,8 +58,7 @@
         <section class="blog-area section-gap">
             <div class="container">
                 <div class="row"> 
-                    <!-- On commence à afficher les articles-->
-                    
+                    <!-- On commence à afficher les articles--> 
                     {% for plat_x in plat_con %}
                         <div class="single-dish col-lg-4 mb-20">
                             <div class="thumb">
@@ -77,14 +71,15 @@
                                 <li>Menu - {{ plat_x.id_menu.nom }}</li>
                             </ul> 
                         </div> 
-                    {% endfor %} 
-                    
+                    {% endfor %}  
                 </div>
             </div>
         </section>
+    </div>
 {% endblock %}
 
 
+<!-- Afficher les adresses électroniques -->
 {% block adresse_mail %}
 	<br>{{ lien_map.app_adresse }}
 	<br>{{ lien_map.app_mailadresse }} 
@@ -108,12 +103,14 @@
 {% block lien_plateforme %}  
 	{% for link in liens %}
 		{% if link.designation|lower  == 'facebook' %}
-			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+			<a href="{{ link.lien }}" title="facebook account link" ><i class="fa fa-facebook"></i></a>
 		{% elif link.designation|lower in 'twitter,x' %}
-			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+			<a href="{{ link.lien }}" title="twitter account link"><i class="fa fa-twitter"></i></a>
 		{% elif link.designation|lower  == 'linkedin' %}
-			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
-		{% endif %}
+			<a href="{{ link.lien }}" title="linkedin account link"><i class="fa fa-linkedin"></i></a> 
+		{% elif link.designation|lower  == 'instagram' %}
+			<a href="{{ link.lien }}" title="instagram account link"><i class="fa fa-instagram"></i></a> 
+		{% endif %} 
 	{% endfor %}  
-{% endblock %}
+{% endblock %} 
 <!-- Fin du footer -->

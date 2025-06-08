@@ -9,13 +9,11 @@
 
 {% block page_Title %} 
 	<title>Restaurant - Monarque - Menu</title>
-{% endblock %} 
-
+{% endblock %}  
 
 
 <!-- Le body -->
-{% block content %}
-    <!-- Start banner Area -->
+{% block content %} 
     <!-- Bannière et image de bannière(image principal du menu)-->
     <section class="generic-banner relative" style="
         background-image: url('{{ menu.image.url }}');
@@ -35,7 +33,8 @@
         </div>
     </section>
     <!-- End banner Area -->
-    <!-- Start Sample Area -->
+
+    <!-- Start Description Area -->
     <section class="sample-text-area">
         <div class="container">
             <h3 class="text-heading">Description</h3>
@@ -45,8 +44,9 @@
             </p>
         </div>
     </section>
-    <!-- End Sample Area -->
-    <!-- Start Align Area -->
+    <!-- End Description Area -->
+
+    <!-- Start Plats Area -->
     <div class="whole-wrap">
         <div class="container">
             <div class="section-top-border">
@@ -55,13 +55,10 @@
                         <h3 class="mb-20">Liste des Plats</h3>
                         <div class="">
                             <ul class="unordered-list">
-                                <!-- Liste des Plats -->
-                                
+                                <!-- Liste des Plats --> 
                                 {% for mp in menu_plats %}
                                     <a href="{% url 'plat_detail' mp.nom %}"><li>{{ mp.nom }} </li></a>
-                                {% endfor %}
-                                    
-                                
+                                {% endfor %} 
                             </ul>
                         </div>
                     </div> 
@@ -69,7 +66,7 @@
             </div> 
         </div>
     </div>
-    <!-- End Align Area -->
+    <!-- End Plats Area -->
 
     <!-- Afficher les autres menus --> 
     <section class="blog-area section-gap">
@@ -91,14 +88,11 @@
                 {% endfor %} 
             </div>
         </div>
-    </section> 
-
-
-
-
+    </section>  
 {% endblock %}
 
 
+<!-- Afficher les adresses électroniques -->
 {% block adresse_mail %}
 	<br>{{ lien_map.app_adresse }}
 	<br>{{ lien_map.app_mailadresse }} 
@@ -122,12 +116,14 @@
 {% block lien_plateforme %}  
 	{% for link in liens %}
 		{% if link.designation|lower  == 'facebook' %}
-			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+			<a href="{{ link.lien }}" title="facebook account link" ><i class="fa fa-facebook"></i></a>
 		{% elif link.designation|lower in 'twitter,x' %}
-			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+			<a href="{{ link.lien }}" title="twitter account link"><i class="fa fa-twitter"></i></a>
 		{% elif link.designation|lower  == 'linkedin' %}
-			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
-		{% endif %}
+			<a href="{{ link.lien }}" title="linkedin account link"><i class="fa fa-linkedin"></i></a> 
+		{% elif link.designation|lower  == 'instagram' %}
+			<a href="{{ link.lien }}" title="instagram account link"><i class="fa fa-instagram"></i></a> 
+		{% endif %} 
 	{% endfor %}  
-{% endblock %}
+{% endblock %} 
 <!-- Fin du footer -->

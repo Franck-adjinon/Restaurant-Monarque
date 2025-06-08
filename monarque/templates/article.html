@@ -12,8 +12,6 @@
 {% endblock %} 
 
 
-
-<!-- Le body -->
 {% block content %}
     <!-- Bannière et image de bannière(image principal de l'article)-->
     <section class="generic-banner relative" style="
@@ -37,7 +35,6 @@
     </section> 
     <!-- End banner Area -->
 
-    <!-- About Generic Start -->
     <div class="main-wrapper">  
         <section class="about-generic-area section-gap">
             <div class="container border-top-generic"> 
@@ -69,8 +66,7 @@
                                 </h4>
                             </a>
                         </div> 
-                    {% endfor %} 
-
+                    {% endfor %}  
                 </div>
             </div>
         </section> 
@@ -78,6 +74,7 @@
 {% endblock %}
 
 
+<!-- Afficher les adresses électroniques -->
 {% block adresse_mail %}
 	<br>{{ lien_map.app_adresse }}
 	<br>{{ lien_map.app_mailadresse }} 
@@ -94,20 +91,21 @@
 		</p>
 	{% endfor %} 
 	
-{% endblock %}
-
+{% endblock %} 
 
 
 <!-- Afficher les liens vers les plateformes sociale -->
 {% block lien_plateforme %}  
 	{% for link in liens %}
 		{% if link.designation|lower  == 'facebook' %}
-			<a href="{{ link.lien }}"><i class="fa fa-facebook"></i></a>
+			<a href="{{ link.lien }}" title="facebook account link" ><i class="fa fa-facebook"></i></a>
 		{% elif link.designation|lower in 'twitter,x' %}
-			<a href="{{ link.lien }}"><i class="fa fa-twitter"></i></a>
+			<a href="{{ link.lien }}" title="twitter account link"><i class="fa fa-twitter"></i></a>
 		{% elif link.designation|lower  == 'linkedin' %}
-			<a href="{{ link.lien }}"><i class="fa fa-linkedin"></i></a> 
-		{% endif %}
+			<a href="{{ link.lien }}" title="linkedin account link"><i class="fa fa-linkedin"></i></a> 
+		{% elif link.designation|lower  == 'instagram' %}
+			<a href="{{ link.lien }}" title="instagram account link"><i class="fa fa-instagram"></i></a> 
+		{% endif %} 
 	{% endfor %}  
-{% endblock %}
+{% endblock %} 
 <!-- Fin du footer -->

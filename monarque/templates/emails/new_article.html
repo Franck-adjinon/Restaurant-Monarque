@@ -124,13 +124,12 @@
 
 <body>
     <div class="email-container">
-        <div class="email-header">
-            <img src="{% static 'img/logo.png' %}" alt="Logo du site">
+        <div class="email-header"> 
             <h1>Nouvel Article 🎉</h1>
         </div>
         <div class="email-body">
             <h2>{{ title.title }}</h2>
-            <p>{{ article.content|safe }}</p>
+            <p>{{ article.content|truncatewords:10 }}</p>
         </div>
         <div class="email-footer">
             <a class="button" href="{{ lien_article }}">Lire l’article complet</a><br>
